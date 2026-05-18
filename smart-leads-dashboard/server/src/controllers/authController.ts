@@ -38,7 +38,7 @@ export const registerUser = async (
         name: user.name,
         email: user.email,
         role: user.role,
-        token: generateToken(user._id as string),
+        token: generateToken(user._id.toString()),
       });
     } else {
       res.status(400);
@@ -47,7 +47,7 @@ export const registerUser = async (
   } catch (error: any) {
     if (error instanceof z.ZodError) {
       res.status(400);
-      next(new Error(error.errors.map(e => e.message).join(', ')));
+      next(new Error(((error as any).errors || (error as any).issues).map((e: any) => e.message).join(', ')));
     } else {
       next(error);
     }
@@ -70,7 +70,7 @@ export const loginUser = async (
         name: user.name,
         email: user.email,
         role: user.role,
-        token: generateToken(user._id as string),
+        token: generateToken(user._id.toString()),
       });
     } else {
       res.status(401);
@@ -79,7 +79,7 @@ export const loginUser = async (
   } catch (error: any) {
     if (error instanceof z.ZodError) {
       res.status(400);
-      next(new Error(error.errors.map(e => e.message).join(', ')));
+      next(new Error(((error as any).errors || (error as any).issues).map((e: any) => e.message).join(', ')));
     } else {
       next(error);
     }

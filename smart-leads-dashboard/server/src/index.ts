@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db';
 import { errorHandler, notFound } from './middlewares/errorMiddleware';
 import authRoutes from './routes/authRoutes';
+import leadRoutes from './routes/leadRoutes';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/leads', leadRoutes);
 
 // Error Middleware
 app.use(notFound);
